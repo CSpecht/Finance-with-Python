@@ -8,7 +8,7 @@ from google.cloud import storage
 import os
 from io import StringIO 
 
-with open('Secret_Key.txt') as f: 
+with open('C:\Scripts\Secret_Key.txt') as f: 
     key = f.read()
     f = FinanceAPI()
     f.registerKey_(key)
