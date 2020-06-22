@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import json
 from urllib.request import urlopen
 
+
 class FinanceAPI():
     """
     Core class
@@ -99,6 +100,30 @@ class FinanceAPI():
         data = response.read().decode("utf-8")
         self.ratios = json.loads(data)
     
+    def forex_data_(self, currencyLoc, currency):
+        """
+        Pulls the exchange Rates
+
+        Parameters
+        ----------
+        currencyLoc : A Currency symbol (str) e.g. 'EUR'
+        currency    : A Currency symbol (str) e.g. 'USD'
+        Returns
+        -------
+        None. Updates the self.currency with the data. 
+        """
+
+        if not self.key_registered:
+            print("API key not registered yet.")
+            return None
+        
+        url = "https://financialmodelingprep.com/api/v3/"+\
+            "fx/"+str(currencyLoc)+str(currency)+'?apikey='+self.key
+        response = urlopen(url)
+        data = response.read().decode("utf-8")
+        self.forex = json.loads(data)
+        return self.forex
+        
     def build_dict(self,symbol):
         """
         Builds a dictionary with a given ticker symbols
@@ -281,3 +306,6 @@ class FinanceAPI():
         plt.xlabel(varX,fontsize=16)
         plt.ylabel(varY,fontsize=16)
         plt.show()
+
+
+        
